@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { Bell, User, HelpCircle, ToggleRight, Sparkles, ExternalLink, X } from "lucide-react";
 import balloonPink from "@/assets/balloon-pink.png";
 import balloonOrange from "@/assets/balloon-orange.png";
 import balloonYellow from "@/assets/balloon-yellow.png";
@@ -21,9 +22,11 @@ function getNextFriday(): Date {
   const now = new Date();
   const target = new Date(now);
   const day = now.getDay();
-  const daysUntilFriday = (5 - day + 7) % 7 || 7;
+  let daysUntilFriday = (5 - day + 7) % 7;
+  // If it's Friday but already past 10am, go to next Friday
+  if (daysUntilFriday === 0 && now.getHours() >= 10) daysUntilFriday = 7;
   target.setDate(now.getDate() + daysUntilFriday);
-  target.setHours(0, 0, 0, 0);
+  target.setHours(10, 0, 0, 0);
   return target;
 }
 
@@ -48,8 +51,7 @@ function pad(n: number) {
 function Index() {
   const [target] = useState(() => getNextFriday());
   const { days, hours, minutes, seconds } = useCountdown(target);
-  const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [notifyOpen, setNotifyOpen] = useState(false);
 
   const units = [
     { label: "Days", value: days },
@@ -111,7 +113,7 @@ function Index() {
           </span>
         </h1>
         <p className="mb-10 max-w-xl font-mono text-sm text-white/90 md:text-base">
-          This Friday at 12:00 AM — every price detonates. Once it drops, it's gone.
+          This Friday at 10:00 AM — every price detonates. Once it drops, it's gone.
         </p>
 
         <div className="mb-3 inline-flex items-center gap-3 text-white/95">
@@ -146,42 +148,163 @@ function Index() {
 
         <div className="w-full max-w-md">
           <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.25em] text-white">
-            Get the explosion alert
+            Unlock the best prices first
           </p>
-          {submitted ? (
-            <div className="rounded-2xl bg-white px-6 py-5 text-center shadow-2xl">
-              <p className="font-bold text-[oklch(0.62_0.21_45)]">You're on the list 🎉</p>
-              <p className="mt-1 text-sm text-neutral-500">We'll ping you the second prices drop.</p>
-            </div>
-          ) : (
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                if (email.trim()) setSubmitted(true);
-              }}
-              className="flex flex-col gap-2 rounded-2xl bg-white p-2 shadow-2xl sm:flex-row"
-            >
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@email.com"
-                className="flex-1 rounded-xl bg-transparent px-4 py-3 text-neutral-800 placeholder-neutral-400 outline-none"
-              />
-              <button
-                type="submit"
-                className="rounded-xl bg-[oklch(0.65_0.22_45)] px-6 py-3 text-sm font-bold uppercase tracking-wider text-white transition-transform hover:scale-105 active:scale-100"
-              >
-                Notify Me →
-              </button>
-            </form>
-          )}
+          <button
+            onClick={() => setNotifyOpen(true)}
+            className="group inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-white px-8 py-4 text-base font-bold uppercase tracking-wider text-[oklch(0.62_0.21_45)] shadow-2xl transition-transform hover:scale-[1.02] active:scale-100"
+          >
+            <Sparkles className="h-5 w-5" />
+            Notify Me
+            <span className="transition-transform group-hover:translate-x-1">→</span>
+          </button>
           <p className="mt-3 text-xs text-white/80">
             Set a reminder · We'll alert you the moment Friday's prices explode
           </p>
         </div>
       </div>
+
+      {notifyOpen && <NotifyModal onClose={() => setNotifyOpen(false)} />}
     </main>
+  );
+}
+
+function NotifyModal({ onClose }: { onClose: () => void }) {
+  const [tab, setTab] = useState<"app" | "web">("app");
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  const steps = [
+    { icon: Bell, label: "Open the Jumia App" },
+    { icon: User, label: "Tap on Account" },
+    { icon: HelpCircle, label: "Go to Help & Support" },
+    { icon: ToggleRight, label: "Turn on Push Notifications" },
+  ];
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm animate-in fade-in"
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-md overflow-hidden rounded-3xl bg-white shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          className="absolute right-4 top-4 z-10 rounded-full bg-black/5 p-2 text-neutral-600 transition hover:bg-black/10"
+        >
+          <X className="h-4 w-4" />
+        </button>
+
+        <div className="bg-gradient-to-br from-[oklch(0.78_0.18_55)] to-[oklch(0.65_0.22_45)] px-6 pb-5 pt-7 text-center">
+          <h2 className="text-xl font-bold text-white">
+            Notifications Off? Let's fix that 🔧
+          </h2>
+          <div className="mt-4 inline-flex rounded-full bg-white/20 p-1 backdrop-blur-sm">
+            <button
+              onClick={() => setTab("app")}
+              className={`rounded-full px-5 py-1.5 text-xs font-bold uppercase tracking-wider transition ${
+                tab === "app" ? "bg-white text-[oklch(0.62_0.21_45)]" : "text-white"
+              }`}
+            >
+              On the App
+            </button>
+            <button
+              onClick={() => setTab("web")}
+              className={`rounded-full px-5 py-1.5 text-xs font-bold uppercase tracking-wider transition ${
+                tab === "web" ? "bg-white text-[oklch(0.62_0.21_45)]" : "text-white"
+              }`}
+            >
+              On the Web
+            </button>
+          </div>
+        </div>
+
+        <div className="px-6 py-6">
+          {tab === "app" ? (
+            <>
+              <ul className="space-y-4">
+                {steps.map((s, i) => (
+                  <li key={i} className="flex items-center gap-4">
+                    <div className="relative shrink-0">
+                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-orange-50">
+                        <s.icon className="h-6 w-6 text-[oklch(0.65_0.22_45)]" strokeWidth={2.2} />
+                      </div>
+                      <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-purple-400 text-[10px] font-bold text-white shadow">
+                        {pad(i + 1)}
+                      </span>
+                    </div>
+                    <span className="text-base font-semibold text-neutral-800">
+                      {s.label}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              <button className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[oklch(0.78_0.18_55)] to-[oklch(0.65_0.22_45)] px-6 py-4 text-sm font-bold uppercase tracking-wider text-white shadow-lg transition-transform hover:scale-[1.02]">
+                <Sparkles className="h-4 w-4" />
+                Enable Notification
+              </button>
+
+              <button
+                onClick={() => setTab("web")}
+                className="mt-4 flex w-full items-center justify-center gap-1.5 text-center text-sm text-neutral-500 hover:text-neutral-700"
+              >
+                Not using the app? Continue to Newsletter
+                <ExternalLink className="h-3.5 w-3.5" />
+              </button>
+            </>
+          ) : (
+            <>
+              <p className="text-sm leading-relaxed text-neutral-600">
+                Subscribe to the Jumia newsletter to get the explosion alert
+                straight to your inbox — manage your preferences in one click.
+              </p>
+              <ul className="mt-5 space-y-3 text-sm text-neutral-700">
+                <li className="flex items-start gap-2">
+                  <span className="mt-0.5 text-[oklch(0.65_0.22_45)]">✓</span>
+                  First access to Friday's exploded prices
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-0.5 text-[oklch(0.65_0.22_45)]">✓</span>
+                  Exclusive coupons before stock runs out
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-0.5 text-[oklch(0.65_0.22_45)]">✓</span>
+                  Unsubscribe anytime
+                </li>
+              </ul>
+
+              <a
+                href="https://www.jumia.com.ng/customer/newsletter/manage/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[oklch(0.78_0.18_55)] to-[oklch(0.65_0.22_45)] px-6 py-4 text-sm font-bold uppercase tracking-wider text-white shadow-lg transition-transform hover:scale-[1.02]"
+              >
+                Manage Newsletter
+                <ExternalLink className="h-4 w-4" />
+              </a>
+
+              <button
+                onClick={() => setTab("app")}
+                className="mt-4 block w-full text-center text-sm text-neutral-500 hover:text-neutral-700"
+              >
+                Prefer the app? See app steps →
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
