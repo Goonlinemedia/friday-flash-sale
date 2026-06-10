@@ -285,15 +285,19 @@ function NotifyModal({ onClose }: { onClose: () => void }) {
                 </li>
               </ul>
 
-              <a
-                href="https://www.jumia.com.ng/customer/newsletter/manage/"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() =>
+                  window.open(
+                    "https://www.jumia.com.ng/customer/newsletter/manage/",
+                    "JumiaNewsletter",
+                    "width=900,height=700,left=200,top=100,resizable=yes,scrollbars=yes"
+                  )
+                }
                 className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[oklch(0.78_0.18_55)] to-[oklch(0.65_0.22_45)] px-6 py-4 text-sm font-bold uppercase tracking-wider text-white shadow-lg transition-transform hover:scale-[1.02]"
               >
                 Manage Newsletter
                 <ExternalLink className="h-4 w-4" />
-              </a>
+              </button>
 
               <button
                 onClick={() => setTab("app")}
