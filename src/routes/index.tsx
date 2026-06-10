@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Bell, User, HelpCircle, ToggleRight, Sparkles, ExternalLink, X } from "lucide-react";
+import confetti from "canvas-confetti";
 import balloonPink from "@/assets/balloon-pink.png";
 import balloonOrange from "@/assets/balloon-orange.png";
 import balloonYellow from "@/assets/balloon-yellow.png";
@@ -52,6 +53,54 @@ function Index() {
   const [target] = useState(() => getNextFriday());
   const { days, hours, minutes, seconds } = useCountdown(target);
   const [notifyOpen, setNotifyOpen] = useState(false);
+
+  useEffect(() => {
+    // Launch continuous side-bursts every 3.5 seconds
+    const intervalId = setInterval(() => {
+      // Left side burst
+      confetti({
+        particleCount: 30,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0, y: 0.85 },
+        colors: ["#ff0055", "#00ffcc", "#ffcc00", "#9900ff", "#ff5500"],
+        disableForced3d: true,
+      });
+      // Right side burst
+      confetti({
+        particleCount: 30,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1, y: 0.85 },
+        colors: ["#ff0055", "#00ffcc", "#ffcc00", "#9900ff", "#ff5500"],
+        disableForced3d: true,
+      });
+    }, 3500);
+
+    // Initial bursts
+    const timeoutId1 = setTimeout(() => {
+      confetti({
+        particleCount: 35,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0, y: 0.85 },
+      });
+    }, 500);
+    const timeoutId2 = setTimeout(() => {
+      confetti({
+        particleCount: 35,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1, y: 0.85 },
+      });
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+      clearTimeout(timeoutId1);
+      clearTimeout(timeoutId2);
+    };
+  }, []);
 
   const units = [
     { label: "Days", value: days },
