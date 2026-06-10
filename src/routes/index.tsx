@@ -151,7 +151,17 @@ function Index() {
             Unlock the best prices first
           </p>
           <button
-            onClick={() => setNotifyOpen(true)}
+            onClick={() => {
+              if (typeof window !== "undefined" && window.matchMedia("(min-width: 768px)").matches) {
+                window.open(
+                  "https://www.jumia.com.ng/customer/newsletter/manage/",
+                  "JumiaNewsletter",
+                  "width=900,height=700,left=200,top=100,resizable=yes,scrollbars=yes"
+                );
+              } else {
+                setNotifyOpen(true);
+              }
+            }}
             className="group inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-white px-8 py-4 text-base font-bold uppercase tracking-wider text-[oklch(0.62_0.21_45)] shadow-2xl transition-transform hover:scale-[1.02] active:scale-100"
           >
             <Sparkles className="h-5 w-5" />
