@@ -162,7 +162,7 @@ function Index() {
           </span>
         </h1>
         <p className="mb-10 max-w-xl font-mono text-sm text-white/90 md:text-base">
-          Get ready Thursday at 11:59 PM — every price detonates at midnight. Once it drops, it's gone.
+          Get ready. This Thursday at 11:59 PM. One minute before everything changes.
         </p>
 
         <div className="mb-3 inline-flex items-center gap-3 text-white/95">
