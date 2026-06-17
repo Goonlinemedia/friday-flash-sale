@@ -52,7 +52,7 @@ function pad(n: number) {
 }
 
 function Index() {
-  const [target] = useState(() => getNextFriday());
+  const [target] = useState(() => getNextFridayMidnight());
   const { days, hours, minutes, seconds } = useCountdown(target);
   const [notifyOpen, setNotifyOpen] = useState(false);
 
