@@ -19,15 +19,17 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-function getNextFriday(): Date {
+function getNextFridayMidnight(): Date {
   const now = new Date();
   const target = new Date(now);
   const day = now.getDay();
   let daysUntilFriday = (5 - day + 7) % 7;
-  // If it's Friday but already past 10am, go to next Friday
-  if (daysUntilFriday === 0 && now.getHours() >= 10) daysUntilFriday = 7;
+  // If it's Friday and already past midnight, go to next Friday
+  if (daysUntilFriday === 0 && (now.getHours() > 0 || now.getMinutes() > 0 || now.getSeconds() > 0)) {
+    daysUntilFriday = 7;
+  }
   target.setDate(now.getDate() + daysUntilFriday);
-  target.setHours(10, 0, 0, 0);
+  target.setHours(0, 0, 0, 0);
   return target;
 }
 
