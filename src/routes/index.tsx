@@ -19,15 +19,17 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-function getNextFriday(): Date {
+function getNextFridayMidnight(): Date {
   const now = new Date();
   const target = new Date(now);
   const day = now.getDay();
   let daysUntilFriday = (5 - day + 7) % 7;
-  // If it's Friday but already past 10am, go to next Friday
-  if (daysUntilFriday === 0 && now.getHours() >= 10) daysUntilFriday = 7;
+  // If it's Friday and already past midnight, go to next Friday
+  if (daysUntilFriday === 0 && (now.getHours() > 0 || now.getMinutes() > 0 || now.getSeconds() > 0)) {
+    daysUntilFriday = 7;
+  }
   target.setDate(now.getDate() + daysUntilFriday);
-  target.setHours(10, 0, 0, 0);
+  target.setHours(0, 0, 0, 0);
   return target;
 }
 
@@ -50,7 +52,7 @@ function pad(n: number) {
 }
 
 function Index() {
-  const [target] = useState(() => getNextFriday());
+  const [target] = useState(() => getNextFridayMidnight());
   const { days, hours, minutes, seconds } = useCountdown(target);
   const [notifyOpen, setNotifyOpen] = useState(false);
 
@@ -160,7 +162,7 @@ function Index() {
           </span>
         </h1>
         <p className="mb-10 max-w-xl font-mono text-sm text-white/90 md:text-base">
-          This Friday at 10:00 AM — every price detonates. Once it drops, it's gone.
+          Thursday at 11:59 PM — every price detonates at midnight. Once it drops, it's gone.
         </p>
 
         <div className="mb-3 inline-flex items-center gap-3 text-white/95">
