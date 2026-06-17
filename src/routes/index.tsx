@@ -64,7 +64,6 @@ function Index() {
         spread: 55,
         origin: { x: 0, y: 0.85 },
         colors: ["#ff0055", "#00ffcc", "#ffcc00", "#9900ff", "#ff5500"],
-        disableForced3d: true,
       });
       // Right side burst
       confetti({
@@ -73,7 +72,6 @@ function Index() {
         spread: 55,
         origin: { x: 1, y: 0.85 },
         colors: ["#ff0055", "#00ffcc", "#ffcc00", "#9900ff", "#ff5500"],
-        disableForced3d: true,
       });
     }, 3500);
 
