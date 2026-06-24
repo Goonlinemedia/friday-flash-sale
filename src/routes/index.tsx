@@ -147,7 +147,7 @@ function Index() {
         </span>
 
         <p className="mb-8 text-xs font-semibold uppercase tracking-[0.4em] text-white/90">
-          Jumia Anniversary · Final day
+          Jumia Anniversary · Final Jolly discount
         </p>
 
         <h1 className="mb-5 max-w-3xl text-4xl font-black leading-[1.05] tracking-tight text-white drop-shadow md:text-6xl">
