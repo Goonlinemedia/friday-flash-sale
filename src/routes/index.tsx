@@ -143,7 +143,7 @@ function Index() {
       <div className="relative z-10 mx-auto flex min-h-screen max-w-4xl flex-col items-center justify-center px-6 py-16 text-center">
         <span className="mb-10 inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/15 px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-md">
           <span className="h-2 w-2 animate-pulse rounded-full bg-white" />
-          Final Explosion Friday · Up to ₦25,000 Off
+          Friday, 12:00 AM · Limited time only
         </span>
 
         <div className="relative mb-2 flex items-end justify-center gap-4">
@@ -152,28 +152,22 @@ function Index() {
           </span>
         </div>
         <p className="mb-8 text-xs font-semibold uppercase tracking-[0.4em] text-white/90">
-          Prices about to explode
+          Jumia Anniversary · Final day
         </p>
 
         <h1 className="mb-5 max-w-3xl text-4xl font-black leading-[1.05] tracking-tight text-white drop-shadow md:text-6xl">
           Up to{" "}
           <span className="bg-gradient-to-r from-yellow-200 via-yellow-100 to-white bg-clip-text text-transparent">
-            ₦25,000 Off
+            ₦25,000
           </span>{" "}
-          — Final Explosion{" "}
-          <span className="bg-gradient-to-r from-yellow-200 via-yellow-100 to-white bg-clip-text text-transparent">
-            Friday
-          </span>
+          off
         </h1>
         <p className="mb-10 max-w-xl font-mono text-sm text-white/90 md:text-base">
-          Get ready. This Friday at 12:00 AM. The final explosion drops — once it's gone, it's gone.
+          on phones, fashion, appliances & more
         </p>
 
         <div className="mb-3 inline-flex items-center gap-3 text-white/95">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-1.5 text-sm font-bold text-[oklch(0.62_0.21_45)] shadow-md">
-            <span>⚡</span> Explosion
-          </span>
-          <span className="text-sm font-medium">ignites in:</span>
+          <span className="text-xs font-bold uppercase tracking-[0.25em] text-white/80">Sale starts in</span>
         </div>
 
         <div className="mb-10 flex gap-3 md:gap-5">
@@ -192,7 +186,7 @@ function Index() {
         </div>
 
         <div className="mb-12 flex flex-wrap items-center justify-center gap-2">
-          {["Limited Stock", "Friday Exclusive", "While Supplies Last", "Be First In Line"].map((t) => (
+          {["🚚 Free delivery on orders over ₦10k", "✅ 100% genuine products", "↩ Easy 7-day returns"].map((t) => (
             <span key={t} className="rounded-full border border-white/40 bg-white/15 px-4 py-1.5 text-xs font-semibold text-white backdrop-blur-sm">
               {t}
             </span>
@@ -201,7 +195,7 @@ function Index() {
 
         <div className="w-full max-w-md">
           <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.25em] text-white">
-            Unlock the best prices first
+            Don't miss the drop
           </p>
           <button
             onClick={() => {
@@ -217,12 +211,12 @@ function Index() {
             }}
             className="group inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-white px-8 py-4 text-base font-bold uppercase tracking-wider text-[oklch(0.62_0.21_45)] shadow-2xl transition-transform hover:scale-[1.02] active:scale-100"
           >
-            <Sparkles className="h-5 w-5" />
-            Notify Me
+            <Bell className="h-5 w-5" />
+            Remind me when it starts
             <span className="transition-transform group-hover:translate-x-1">→</span>
           </button>
           <p className="mt-3 text-xs text-white/80">
-            Set a reminder · We'll alert you the moment Friday's prices explode
+            We'll send you an alert before the sale goes live
           </p>
         </div>
       </div>
