@@ -146,11 +146,6 @@ function Index() {
           Friday, 12:00 AM · Limited time only
         </span>
 
-        <div className="relative mb-2 flex items-end justify-center gap-4">
-          <span className="bg-gradient-to-b from-white to-white/40 bg-clip-text text-[8rem] font-black leading-none tracking-tighter text-transparent drop-shadow-lg md:text-[12rem]">
-            BOOM
-          </span>
-        </div>
         <p className="mb-8 text-xs font-semibold uppercase tracking-[0.4em] text-white/90">
           Jumia Anniversary · Final day
         </p>
@@ -182,14 +177,6 @@ function Index() {
                 {u.label}
               </span>
             </div>
-          ))}
-        </div>
-
-        <div className="mb-12 flex flex-wrap items-center justify-center gap-2">
-          {["🚚 Free delivery on orders over ₦10k", "✅ 100% genuine products", "↩ Easy 7-day returns"].map((t) => (
-            <span key={t} className="rounded-full border border-white/40 bg-white/15 px-4 py-1.5 text-xs font-semibold text-white backdrop-blur-sm">
-              {t}
-            </span>
           ))}
         </div>
 
