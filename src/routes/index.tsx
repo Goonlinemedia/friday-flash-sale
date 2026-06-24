@@ -11,9 +11,9 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Friday Explosion Day — Mega Discounts Drop Friday" },
-      { name: "description", content: "Get ready for Friday Explosion Day. Our biggest discount drop of the year ignites this Friday. Set a reminder before stock vanishes." },
-      { property: "og:title", content: "Friday Explosion Day — Mega Discounts Drop Friday" },
-      { property: "og:description", content: "The biggest price explosion of the year drops Friday. Be first in line." },
+      { name: "description", content: "Final Explosion Friday — up to ₦25,000 off. Prices detonate Friday at 12:00 AM. Set a reminder before stock vanishes." },
+      { property: "og:title", content: "Final Explosion Friday — Up to ₦25,000 Off" },
+      { property: "og:description", content: "The final price explosion drops Friday at 12:00 AM. Up to ₦25,000 off. Be first in line." },
     ],
   }),
   component: Index,
@@ -143,7 +143,7 @@ function Index() {
       <div className="relative z-10 mx-auto flex min-h-screen max-w-4xl flex-col items-center justify-center px-6 py-16 text-center">
         <span className="mb-10 inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/15 px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-md">
           <span className="h-2 w-2 animate-pulse rounded-full bg-white" />
-          Friday Exclusive · Explosion Day 2026
+          Final Explosion Friday · Up to ₦25,000 Off
         </span>
 
         <div className="relative mb-2 flex items-end justify-center gap-4">
@@ -156,13 +156,17 @@ function Index() {
         </p>
 
         <h1 className="mb-5 max-w-3xl text-4xl font-black leading-[1.05] tracking-tight text-white drop-shadow md:text-6xl">
-          The Biggest Discounts Drop on{" "}
+          Up to{" "}
+          <span className="bg-gradient-to-r from-yellow-200 via-yellow-100 to-white bg-clip-text text-transparent">
+            ₦25,000 Off
+          </span>{" "}
+          — Final Explosion{" "}
           <span className="bg-gradient-to-r from-yellow-200 via-yellow-100 to-white bg-clip-text text-transparent">
             Friday
           </span>
         </h1>
         <p className="mb-10 max-w-xl font-mono text-sm text-white/90 md:text-base">
-          Get ready. This Thursday at 11:59 PM. One minute before everything changes.
+          Get ready. This Friday at 12:00 AM. The final explosion drops — once it's gone, it's gone.
         </p>
 
         <div className="mb-3 inline-flex items-center gap-3 text-white/95">
